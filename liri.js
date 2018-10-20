@@ -3,13 +3,15 @@ require("dotenv").config();
 var request = require("request");
 var moment = require("moment");
 var spotify = require("node-spotify-api");
+var fs = require("fs");
 
 var keys = require("./keys");
 
 var command = process.argv[2];
 var dataWanted = process.argv[3];
 
-switch (command) {
+function switchThis (command,dataWanted){
+    switch (command) {
     case "concert-this":
         concertThis(dataWanted);
         break;
@@ -23,9 +25,10 @@ switch (command) {
         break;
 
     case "do-what-it-says":
-        // doTheThing();
+        doTheThing(dataWanted);
         break;
 }
+};
 
 
 function concertThis(artist) {
@@ -73,6 +76,9 @@ function spotifyThis(song) {
 }
 
 function movieThis(movieName) {
+    if (movieName === undefined) {
+        movieName = "Mr. Nobody"
+    }
 
     var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
@@ -97,3 +103,28 @@ request(queryUrl, function(error, response, body) {
   }
 });
 }
+
+function doTheThing(){
+    fs.readFile("random.txt", "utf8", function(error, data) {
+
+        // If the code experiences any errors it will log the error to the console.
+        if (error) {
+          return console.log(error);
+        }
+      
+        // We will then print the contents of data
+        console.log(data);
+      
+        // Then split it by commas (to make it more readable)
+        var dataArr = data.split(",");
+      
+        // We will then re-display the content as an array for later use.
+        console.log(dataArr);
+
+        switchThis(dataArr[0],dataArr[1]);
+      
+      });
+   
+}
+
+switchThis(process.argv[2],process.argv[3]);
