@@ -8,7 +8,7 @@ var fs = require("fs");
 
 var keys = require("./keys");
 
-//structured similiar to Activity 15 Bank JS, one set of inputs, multiple outputs. In this case, each output will consist of a different function
+//structured similiar to Activity 15 Bank JS, one set of inputs, multiple outputs. In this case, each output will consist of a different function, as per HW directions
 
 
 var command = process.argv[2];
@@ -51,9 +51,12 @@ function concertThis(artist) {
 }
 
 function spotifyThis(song) {
+    //if statement confirms default song
     if (song === undefined) {
         song = "The Sign"
     }
+
+    //similiar to API setup like we learned when we were learning API exercises. 
     let config = {
         id: keys.spotify.id,
         secret: keys.spotify.secret
@@ -109,6 +112,8 @@ request(queryUrl, function(error, response, body) {
   }
 });
 }
+
+//Similiar to activity 12, ReadFile. The difference is we are turning the whole activity into a function that uses our previous functions to execute what is in the text file. The code is simple but the concept is mind-blowing. 
 
 function doTheThing(){
     fs.readFile("random.txt", "utf8", function(error, data) {
