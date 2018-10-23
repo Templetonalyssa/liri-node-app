@@ -1,3 +1,4 @@
+//variables required to use node packages
 require("dotenv").config();
 
 var request = require("request");
@@ -6,6 +7,9 @@ var spotify = require("node-spotify-api");
 var fs = require("fs");
 
 var keys = require("./keys");
+
+//structured similiar to Activity 15 Bank JS, one set of inputs, multiple outputs. In this case, each output will consist of a different function
+
 
 var command = process.argv[2];
 var dataWanted = process.argv[3];
@@ -30,18 +34,18 @@ function switchThis (command,dataWanted){
 }
 };
 
+//functions that correspond to each of the directions from the homework
+//Function "concertThis" is similiar to activity 17, OMDB Request
 
 function concertThis(artist) {
 
     request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, response, body) {
         var data = JSON.parse(body)
         for (var i = 0; i < data.length; i++) {
-            var name = data[i].venue.name
-            console.log(name);
-            var venue = data[i].venue.city
-            console.log(venue)
+            console.log("Venue Name: " + data[i].venue.name);
+            console.log("Venue City: " + data[i].venue.city)
             var date = data[i].datetime
-            console.log(moment(date).format("MM/DD/YYYY"));
+            console.log("Concert Date: " + moment(date).format("MM/DD/YYYY"));
         }
     })
 }
@@ -75,6 +79,8 @@ function spotifyThis(song) {
     });
 }
 
+//Function "movieThis" is similiar to Activity 17, but with us requesting more data from the JSON
+
 function movieThis(movieName) {
     if (movieName === undefined) {
         movieName = "Mr. Nobody"
@@ -90,7 +96,7 @@ request(queryUrl, function(error, response, body) {
   // If the request is successful
   if (!error && response.statusCode === 200) {
 
-    // Parse the body of the site and recover just the imdbRating
+    // Parse the body of the site and recover the imdbRating and other required info
     // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
     console.log("Release Year: " + JSON.parse(body).Year);
     console.log("IMDB Rating: " +JSON.parse(body).imdbRating);
