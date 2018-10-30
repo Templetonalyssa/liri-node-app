@@ -41,6 +41,7 @@ function concertThis(artist) {
 
     request("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp", function (error, response, body) {
         var data = JSON.parse(body)
+        //JSON.parse(body)[i]
         for (var i = 0; i < data.length; i++) {
             console.log("Venue Name: " + data[i].venue.name);
             console.log("Venue City: " + data[i].venue.city)
@@ -49,6 +50,7 @@ function concertThis(artist) {
         }
     })
 }
+//386-956-9952
 
 function spotifyThis(song) {
     //if statement confirms default song
@@ -70,14 +72,18 @@ function spotifyThis(song) {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
+
+        
         for (var i = 0; i < data.tracks.items[0].artists.length; i++) {
             var artists = data.tracks.items[0].artists[i].name;
-            console.log(artists);
+            console.log("Artists: " + artists);
         }
         var songlink = data.tracks.items[0].preview_url;
-        console.log(songlink);
+        console.log("Preview Link: " + songlink);
         var songalbum = data.tracks.items[0].album.name;
-        console.log(songalbum);
+        console.log("Song Album: " + songalbum);
+
+
 
     });
 }
