@@ -50,7 +50,7 @@ function concertThis(artist) {
         }
     })
 }
-//386-956-9952
+//
 
 function spotifyThis(song) {
     //if statement confirms default song
